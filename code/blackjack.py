@@ -1,4 +1,4 @@
-'''
+"""
 blackjack.py
 
 implementation of the cardgame blackjack in python
@@ -7,54 +7,69 @@ implementation of the cardgame blackjack in python
 @date July 11th, 2024
 
 blackjack resource https://bicyclecards.com/how-to-play/blackjack
-'''
+"""
 
-'''
-TO BE IMPLEMENTED
-- [ ] Allow for realistic drawing from a set 52 cards for the dealer and player
-- [ ] Allow for betting, player will lose game if they run out of money
-- [ ] Shuffling of deck after each deal
-- [ ] Allow for LAN multiplayer eventually?
+# Card type declarations
+suits = ["spade", "heart", "diamond", "club"]
+faces = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
 
-Game specific
-- [ ] Init a shuffled deck
-- [ ] ability to place an initial bet with a starting amount
-- [ ] Given each player a card from the shuffled deck
-- [ ] dealer has one card face up and one facedown on second deal
-- [ ] if player has a natural black jack (21) and dealer does not, they gain 1.5x the bet amount
-- [ ] if dealer has natural and no one else does, collect from each player
-- [ ] if  player and dealer both have natural, player wins nothing and takes bakc chips
-
-Decision logic for player 
-- [ ] Player can stand or hit after two cards hit
-- [ ] 
-
-Decision logic for the Dealer
-- [ ] 
-'''
+def create_deck():
+    """ Creates 52 card deck """
+    deck = []
+    for suit in suits:
+        for face in faces:
+            deck.append((face, suit))
+    return deck
 
 class Player:
-    '''
-    Player class
-    '''
-    pass
+    """ Instance of a player in the game, aka you """
+    def __init__(self, moolah):
+        self.money = moolah # Initial money amount to bet
+        self.score = 0 # Initial score amount based on sum of all cards currently held
+        self.hand = "" # String to represent all cards currently held by a player
+    def bet(self):
+        """ Declare amount bet on a round """
+        pass
+    def hit(self):
+        """ Be dealt a card """ 
+        pass
+    def stand(self):
+        """ Stand on a deal """
+        pass
 
 class Game:
-    '''
-    Game class
-    '''
-    pass
+    """ Game instance that will control all aspects an instance of a game taking place """
+    def __init__(self):
+        """ Instantiate game variables """
+        self.deck = create_deck()
+        self.num_players = 1 # hardcoded for now
+
+    def shuffle(self):
+        """ Shuffles the card deck and returns string of shuffled deck """
+
+    def deal(self):
+        """ Deals cards to all players including the dealer """
+        pass
+    def draw_dealer(self):
+        """ Draw the dealer in the terminal (sounds coool) """
+        pass
 
 def main():
     print("Welcome to blackjack-py")
 
     # Initialize game and shuffle deck with random order
+    print("initializing game...")
+    game = Game()
+
+    print("Your deck is ready sir...")
+    for card in game.deck:
+        print(card)
 
     # Game Loop
-    # draw cards for the dealer and the player
+    #while True:
+        # draw cards for the dealer and the player
 
-    # allow player to decide to hit or pass 
-
+        # allow player to decide to hit or pass 
 
 if __name__ == "__main__":
     main()
