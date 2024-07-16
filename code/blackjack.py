@@ -12,16 +12,16 @@ import random
 import sys
 
 # Card type declarations
-suits = ["spade", "heart", "diamond", "club"]
-faces = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
-
-def create_deck():
-    """ Creates 52 card deck """
-    deck = []
-    for suit in suits:
-        for face in faces:
-            deck.append((face, suit))
-    return deck
+# suits = ["spade", "heart", "diamond", "club"]
+# faces = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
+# 
+# def create_deck():
+#     """ Creates 52 card deck """
+#     deck = []
+#     for suit in suits:
+#         for face in faces:
+#             deck.append((face, suit))
+#     return deck
 
 class Player:
     """ Instance of a player in the game, aka you """
@@ -36,14 +36,6 @@ class Player:
     def bet(self):
         """ Declare amount bet on a round """
         pass
-    
-    def hit(self):
-        """ Be dealt a card """ 
-        pass
-    
-    def stand(self):
-        """ Stand on a deal """
-        pass
 
 class Game:
     """ Game instance that will control all aspects an instance of a game taking place """
@@ -56,7 +48,16 @@ class Game:
 
     def shuffle(self):
         """ Shuffles the card deck and returns string of shuffled deck """
-        deck = create_deck()
+        # Card type declarations
+        suits = ["spade", "heart", "diamond", "club"]
+        faces = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"]
+
+        deck = [] # Creates 52 card deck
+        
+        for suit in suits:
+            for face in faces:
+                deck.append((face, suit))
+
         random.shuffle(deck) 
         return deck
 
@@ -79,7 +80,6 @@ def get_hand_score(hand):
     score = 0
     for card in hand:
         face, suit = card
-        print("Card is a %s of %s" % (face, suit))
         match face: 
             case "A":
                 score += 1
@@ -94,11 +94,6 @@ def get_hand_score(hand):
 
     return score
     
-
-def bust(hand): 
-    """ Given a hand, determine whether a hand is a bust or not aka >21 """
-    pass
-
 def main():
     print("Welcome to blackjack-py")
 
@@ -140,10 +135,26 @@ def main():
         print("Dealer hand ", dealer.hand)
         if player1.get_score() > 21:
             print("You busted!")
+            break
+
+        # TODO dealer loop where they will hit until they have at least 17 
+        print("Dealers turn")
+        while dealer.get_score() < 17:
+            game.deal(dealer)
+            print("Dealer's score -> %s = %d" % (dealer.hand, dealer.get_score()))
+        
+        if dealer.get_score() > 21: 
+            if player1.get_score() == 21:
+                print("3 to 2 paid on dealers bust!")
+            else:
+                print("dealer busted! all hands returned!")
         elif dealer.get_score() > player1.get_score():
             print("You lost to the dealers hand of %d!" % dealer.get_score())
+        elif dealer.get_score() == player1.get_score() == 21:
+            print("Draw!")
         else:
             print("You won!")
+        
         break
             
 
