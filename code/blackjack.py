@@ -67,11 +67,11 @@ class Game:
         player.hand.append(card2deal)
 
     def draw_dealer_idle(self):
-        """ Draw the dealer in the terminal when idle (sounds coool) """
+        """ TODO Draw the dealer in the terminal when idle (sounds coool) """
         pass
 
     def draw_dealer_deal(self):
-        """ Draw the dealer in the terminal when dealing card (sounds coool) """
+        """ TODO Draw the dealer in the terminal when dealing card (sounds coool) """
         pass
 
 def get_hand_score(hand):
@@ -113,7 +113,7 @@ def main():
         game.deal(dealer) 
 
         # Get score of hand from dealer and player and ask player if they would like to hit or stand
-        print("Getting score for dealers hand...", game.deck)     
+        print("Getting score for dealers hand...", get_hand_score(dealer.hand))     
         print("Score of dealer is %d\n\n" % get_hand_score(dealer.hand))
 
         while player1.get_score() <= 21:
@@ -138,10 +138,10 @@ def main():
             break
 
         # TODO dealer loop where they will hit until they have at least 17 
-        print("Dealers turn")
+        print("\nDealers turn\n")
         while dealer.get_score() < 17:
             game.deal(dealer)
-            print("Dealer's score -> %s = %d" % (dealer.hand, dealer.get_score()))
+            print("Dealer hit::score -> %s = %d" % (dealer.hand, dealer.get_score()))
         
         if dealer.get_score() > 21: 
             if player1.get_score() == 21:
