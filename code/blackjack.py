@@ -78,11 +78,12 @@ def get_hand_score(hand):
     """ Given a hand, determine the number score """
     """ TODO will need to account for an A being a 1 or 11 """
     score = 0
+    naces = 0 # Number of aces held by player
     for card in hand:
-        face, suit = card
+        face, _ = card
         match face: 
             case "A":
-                score += 1
+               naces += 1
             case "K":
                 score += 12
             case "Q":
@@ -91,6 +92,12 @@ def get_hand_score(hand):
                 score += 10
             case _: 
                 score += int(face)
+    
+    for i in range(0, naces):
+        if score + 11 > 21:
+            score += 1
+        else:
+            score += 11
 
     return score
     
@@ -142,7 +149,7 @@ def main():
         while dealer.get_score() < 17:
             game.deal(dealer)
             print("Dealer hit::score -> %s = %d" % (dealer.hand, dealer.get_score()))
-        
+        print("Dealer final score %d\n" % dealer.get_score())
         if dealer.get_score() > 21: 
             if player1.get_score() == 21:
                 print("3 to 2 paid on dealers bust!")
@@ -150,7 +157,7 @@ def main():
                 print("dealer busted! all hands returned!")
         elif dealer.get_score() > player1.get_score():
             print("You lost to the dealers hand of %d!" % dealer.get_score())
-        elif dealer.get_score() == player1.get_score() == 21:
+        elif dealer.get_score() == player1.get_score():
             print("Draw!")
         else:
             print("You won!")
